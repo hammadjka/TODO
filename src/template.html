@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+</head>
+<body>
+    <div id="topbar">
+        <img class="topImg" src="./check.svg" alt="">
+        <h1>Declutter</h1>
+    </div>
+    <div id="sidebar">
+        <div class="sideItem">
+            <img class="sideImg" src="all.svg" alt="">
+            <h3>All</h3>
+        </div>
+        <div class="sideItem">
+            <img src="calendar-today.svg" class="sideImg" alt="">
+            <h3>Today</h3>
+        </div>
+        <div class="sideItem">
+            <img class="sideImg" src="calendar-week.svg" alt="">
+            <h3>This Week</h3>
+        </div>
+        <div class="sideItem">
+            <img src="folder-multiple.svg" class="sideImg" alt="">
+            <h3>Projects</h3>
+        </div>
+    </div>
+    <div id="content">
+        <div id="contentTop">
+            <h1 id="contentHeading">All Tasks</h1>
+            <div id="filters">
+                <div class="filterItems priorityFilter" >
+                    <img class="sideImg priorityFilter" src="swap-vertical.svg" alt="">
+                    <h3 class="priorityFilter">High-Low Priority</h3>
+                </div>
+                <div class="filterItems">
+                    <img class="sideImg" src="text-box-check-outline.svg" alt="">
+                    <h3>Completed Tasks</h3>
+                </div>
+                <div class="filterItems">
+                    <img class="sideImg" src="history.svg" alt="">
+                    <h3>Date Added</h3>
+                </div>
+            </div>
+        </div>
+        <div id="contentBottom">
+            <div id="add" class="pointer">
+                <div id="taskAdd">
+                    <img class="sideImg" src="plus.svg" alt="">
+                    <h3>Add Task</h3>
+                </div>
+                <form action="" id="taskForm">
+                    <div id="formContent">
+                        <div id="wrapper">
+                            <div class ="formGroup" id="title">
+                                <h3>Title</h3>
+                                <input  type="text" id="taskTitle" name="taskTitle" required>
+                            </div>
+                            <div class ="formGroup" id="dueDate">
+                                <h3>Due</h3>
+                                <input  type="date" id="date" required>
+                            </div>
+                            <div class ="formGroup" id="priority">
+                                <h3 id="priorityLbl">Priority</h3>
+                                <div id="radioOptions">
+                                    <label for="option1">Hi</label>
+                                    <input type="radio" id="option1" name="options" value="high" required>
+                                    <label for="option2">Med</label>
+                                    <input type="radio" id="option2" name="options" value="medium">
+                                    <label for="option3">Low</label>
+                                    <input type="radio" id="option3" name="options" value="low">
+                                </div>
+                            </div>
+                        </div>
+                        <textarea placeholder="Description" name="description" id="description"></textarea>
+                        <div id="endButtons">
+                            <button type="submit" pId="0" class="button-27" id="submitBtn">Add</button>
+                            <button type="button" class="button-27" id="cancel">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="tasks">
+                <div id="templateTask" pId="0" tId="0" class="high">
+                    <div id="taskUpper">
+                        <div id="taskHead">
+                            <h3 id="headTaskTitle">Demo Task</h3>
+                            <h3 id="headProjectTitle">(Project Name)</h3>
+                        </div>
+                        <div id="taskOptions">
+                            <img id="editImg" class="taskImgs" src="pencil.svg" alt="">
+                            <img id="deleteImg" class="taskImgs" src="delete-forever.svg" alt="">
+                        </div>
+                    </div>
+                    <div id="taskLower">
+                        <div id="taskDate">
+                            <h3>Due Date: </h3>
+                            <h3 id="due">2024-02-10</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
