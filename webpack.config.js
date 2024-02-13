@@ -4,7 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    entry: {
+        page1: './src/pages/page1/index.js',
+    },
     devtool: 'inline-source-map',
     module: {
     rules: [
@@ -24,18 +26,23 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-         title: 'Development',
-         template: './src/template.html',
-         inject: 'head'
+            title: 'Development',
+            template: './src/pages/page1/index.html',
+            filename: 'all.html',
+            chunks: ['page1']
         }),
+        new HtmlWebpackPlugin({
+            template: './src/pages/projects/projects.html',
+            filename: 'projects.html',
+            chunks: ['page1']
+        })
     ],
     output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'dist'),
-        clean: true,
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist')
     },
     devServer: {
         static: './dist',
-        watchFiles: ['./src/template.html'],
+        watchFiles: ['./src/pages/page1/index.html', './src/pages/projects/projects.html'],
     },
 };

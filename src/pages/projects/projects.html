@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+</head>
+<body>
+    <div id="topbar">
+        <img class="topImg" src="../../assets/check.svg" alt="">
+        <h1>Declutter</h1>
+    </div>
+    <div id="sidebar">
+        <div class="sideItem">
+            <img class="sideImg" src="../../assets/all.svg" alt="">
+            <h3><a href="./all.html">All</a></h3>
+        </div>
+        <div class="sideItem">
+            <img src="../../assets/calendar-today.svg" class="sideImg" alt="">
+            <h3>Today</h3>
+        </div>
+        <div class="sideItem">
+            <img class="sideImg" src="../../assets/calendar-week.svg" alt="">
+            <h3>This Week</h3>
+        </div>
+        <div class="sideItem">
+            <img src="../../assets/folder-multiple.svg" class="sideImg" alt="">
+            <h3><a href="./projects.html">Projects</a></h3>
+        </div>
+    </div>
+    <div id="content">
+        <div id="contentTop">
+            <h1 id="contentHeading">Projects</h1>
+            <div id="filters">
+                <div class="filterItems priorityFilter" id="priorityFilter">
+                    <img class="sideImg priorityFilter" src="../../assets/swap-vertical.svg" alt="">
+                    <h3 class="priorityFilter">High-Low Priority</h3>
+                </div>
+                <div class="filterItems" >
+                    <img class="sideImg" src="../../assets/text-box-check-outline.svg" alt="">
+                    <h3>Completed Tasks</h3>
+                </div>
+                <div class="filterItems">
+                    <img class="sideImg" src="../../assets/history.svg" alt="">
+                    <h3>Date Added</h3>
+                </div>
+            </div>
+        </div>
+        <div id="projects">
+            <div id="newProject">
+                <button id="addProject"></button>
+            </div>
+            <div class="project" id="templateProject">
+                <h3 id="projectTitle">New Title</h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -5,7 +5,7 @@ body, html{
     height: 100vh;
     display: flex;
     flex-direction: column;
-    --topbar-height: 15vh;
+    --topbar-height: 125px;
     --sidebar-width: 215px;
 }
 h1, h3, h2, h4{
@@ -71,7 +71,7 @@ h1, h3, h2, h4{
     left: var(--sidebar-width);
     bottom: 0;
     right: 0;
-    padding: 25px 20px;
+    padding: 25px 0px;
     display: grid;
     grid-template-rows: 1fr 10fr;
     background: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
@@ -81,7 +81,7 @@ h1, h3, h2, h4{
     display: grid;
     grid-template-columns: 1fr 4fr;
     gap:10px;
-    padding: 0px 10px;
+    padding: 0px 30px;
     flex:1;
     align-items: center;
     
@@ -110,7 +110,7 @@ h1, h3, h2, h4{
     transform: scale(1.2); /* Increase the scale on hover */
 }
 #contentBottom{
-    padding-top: 10px;
+    padding: 10px 20px 0px 20px;
     display: grid;
     grid-template-rows: minmax(15%, max-content) auto;
     gap:10px;
@@ -128,6 +128,7 @@ h1, h3, h2, h4{
     align-items: start;
     padding: 5px 20px;
     gap:5px;
+    display: none;
 }
 #taskUpper{
     display: flex;
@@ -291,5 +292,57 @@ input[type="radio"]{
 form{
     height: max-content;
     width: 100%;
+    display: none;
+}
+
+/* Projects */
+#projects{
+    padding: 20px 30px;
+    background-color: #FFFFFF;
+    display: grid;
+    grid-template-columns: repeat( auto-fill, minmax(180px, 1fr));
+    gap: 50px;
+}
+#newProject{
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 200px;
+    width: 180px;
+    border-radius: 5%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    color: black;
+}
+#addProject{
+    height: 50px;
+    width: 50px;
+    background: rgba(0,0,0,0.15) url(./assets/plusWhite.svg) no-repeat;
+    background-position: cover;
+    border: none;
+    border-radius: 50%;
+    transition-duration: 0.3s;
+}
+#addProject:hover{
+    background: black url(./assets/plusWhite.svg) no-repeat;
+    cursor: pointer;
+}
+.project{
+    background-color:rgba(0, 0, 0, 0.1);
+    color: black;
+    height: 200px;
+    width: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 3%;
+    transition: transform 0.3s ease-in-out;
+    font-size: larger;
+}
+.project:hover{
+    transform: scale(1.1);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+#templateProject{
     display: none;
 }
