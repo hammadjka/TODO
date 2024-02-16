@@ -47,7 +47,7 @@ h1, h3, h2, h4{
     display: flex;
     justify-content: start;
     margin: 0px 12px;
-    padding: 0px 3px;
+    padding: 0px 15px;
     gap: 10px;
     border-radius: 4px;
     height: 8vh;
@@ -71,7 +71,7 @@ h1, h3, h2, h4{
     left: var(--sidebar-width);
     bottom: 0;
     right: 0;
-    padding: 25px 0px;
+    padding: 25px 0px 0px 0px;
     display: grid;
     grid-template-rows: 1fr 10fr;
     background: linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
@@ -298,7 +298,7 @@ form{
 /* Projects */
 #projects{
     padding: 20px 30px;
-    background-color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.5);
     display: grid;
     grid-template-columns: repeat( auto-fill, minmax(180px, 1fr));
     gap: 50px;
@@ -344,5 +344,8 @@ form{
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 #templateProject{
+    display: none;
+}
+#content2{
     display: none;
 }

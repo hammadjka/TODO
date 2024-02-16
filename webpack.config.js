@@ -1,48 +1,61 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
     mode: 'development',
     entry: {
-        page1: './src/pages/page1/index.js',
+        all: './src/pages/page1/all.js',
+        projects: './src/pages/projects/projects.js'
+    },
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist')
     },
     devtool: 'inline-source-map',
     module: {
     rules: [
         {
-            test: /\.css$/i,
-            use: ['style-loader', 'css-loader'],
-        }, 
+            test: /.s?css$/,
+            use: [MiniCssExtractPlugin.loader, "css-loader"],
+        },
         {
             test: /\.(html)$/,
-            use: ['html-loader']
+            use: ['html-loader'],
         },
         {
             test: /\.(png|svg|jpg|jpeg|gif)$/i,
             type: 'asset/resource',
-        }
+        },
+
+        
     ],
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Development',
-            template: './src/pages/page1/index.html',
+            template: './src/pages/page1/all.html',
             filename: 'all.html',
-            chunks: ['page1']
+            chunks: ['all']
         }),
         new HtmlWebpackPlugin({
             template: './src/pages/projects/projects.html',
             filename: 'projects.html',
-            chunks: ['page1']
-        })
+            chunks: ['projects']
+        }),
+        new MiniCssExtractPlugin({
+            filename: '[name].min.css', // Output minified CSS filename
+        }),
     ],
-    output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist')
+    optimization: {
+        minimizer: [
+            new CssMinimizerPlugin(), // Minify CSS files
+        ],
     },
     devServer: {
         static: './dist',
-        watchFiles: ['./src/pages/page1/index.html', './src/pages/projects/projects.html'],
+        watchFiles: ['./src/pages/page1/all.html', './src/pages/projects/projects.html'],
     },
 };

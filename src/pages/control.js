@@ -46,26 +46,14 @@ function Project(title){
         }
         return false;
     }
-    return{setProjectTitle, getProjectTitle, addTask, removeTask, editTask, _title, _taskId}
+    return{setProjectTitle, getProjectTitle, addTask, removeTask, editTask, _title, _taskId, _tasks}
 }
 export const controller = (function(){
     // Retrieve projects from local storage, or use an empty object if not found
     // localStorage.removeItem('projects');
-    let jsonProjs = JSON.parse(localStorage.getItem('projects'));
     let _projs = {};
-    if(_projs[0] == undefined){
-        _projs[0] = Project("all");
-    }
-    let _projId = Object.keys(_projs).length || 0;
-
-    const loadProjectFromJson = (json) =>{
-        for (let key in json) {
-            console.log(_projs[key]._title);
-        }
-    }
-    const saveProjectsToLocalStorage = () => {
-        localStorage.setItem('projects', JSON.stringify(_projs));
-    };
+    let _projId = 0;
+    let jsonProjs = JSON.parse(localStorage.getItem('projects'));
 
     const addProj = (title) => {
         _projs[_projId] = Project(title);
@@ -81,11 +69,8 @@ export const controller = (function(){
     const getProjectTitle = (pId) => _projs[pId].getProjectTitle();
 
     const addTaskToProj = (pId, title, desc, due, priority) => {
-        console.log(_projs[0].hasOwnProperty("setProjectTitle"));
         let tId = _projs[pId].addTask(title, desc, due, priority);
         saveProjectsToLocalStorage();
-        let copy = JSON.parse(localStorage.getItem('projects'));
-        // loadProjectFromJson(copy);
         return tId;
     };
 
@@ -99,9 +84,29 @@ export const controller = (function(){
         saveProjectsToLocalStorage();
     };
 
-    const getProjs = () => {
-        return _projs;
+    const getProjsAsJson = () => {
+        return JSON.parse(localStorage.getItem('projects'));
     };
+    
+    const saveProjectsToLocalStorage = () => {
+        localStorage.setItem('projects', JSON.stringify(_projs));
+    };
+    
+    const loadProjectFromJson = (jsonProj) =>{
+        if(jsonProj == undefined || Object.keys(jsonProj).length === 0){
+            addProj("All");
+            return;
+        }
+        for (let projId in jsonProj) {
+            addProj(jsonProj[projId]._title);
+            for (let taskId in jsonProj[projId]._tasks){
+                let task = jsonProj[projId]._tasks[taskId];
+                addTaskToProj(projId, task._title, task._desc, task._due, task._priority)
+            }
+        }
+    }
+    loadProjectFromJson(jsonProjs);
+    console.log(JSON.parse(localStorage.getItem('projects')))
 
     return {
         addProj,
@@ -110,6 +115,6 @@ export const controller = (function(){
         addTaskToProj,
         removeTaskFromProj,
         editTaskOfProj,
-        getProjs
+        getProjsAsJson
     };
 })();

@@ -31,6 +31,20 @@
     <div id="content">
         <div id="contentTop">
             <h1 id="contentHeading">Projects</h1>
+        </div>
+        <div id="projects">
+            <div id="newProject">
+                <button id="addProject"></button>
+            </div>
+            <div class="project" id="templateProject" pId = "-1">
+                <h3 id="projectTitle">New Title</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="content2">
+        <div id="contentTop">
+            <h1 id="contentHeading">All Tasks</h1>
             <div id="filters">
                 <div class="filterItems priorityFilter" id="priorityFilter">
                     <img class="sideImg priorityFilter" src="../../assets/swap-vertical.svg" alt="">
@@ -46,12 +60,62 @@
                 </div>
             </div>
         </div>
-        <div id="projects">
-            <div id="newProject">
-                <button id="addProject"></button>
+        <div id="contentBottom">
+            <div id="add" class="pointer">
+                <div id="taskAdd">
+                    <img class="sideImg" src="../../assets/plus.svg" alt="">
+                    <h3>Add Task</h3>
+                </div>
+                <form action="" id="taskForm">
+                    <div id="formContent">
+                        <div id="wrapper">
+                            <div class ="formGroup" id="title">
+                                <h3>Title</h3>
+                                <input  type="text" id="taskTitle" name="taskTitle" required>
+                            </div>
+                            <div class ="formGroup" id="dueDate">
+                                <h3>Due</h3>
+                                <input  type="date" id="date" required>
+                            </div>
+                            <div class ="formGroup" id="priority">
+                                <h3 id="priorityLbl">Priority</h3>
+                                <div id="radioOptions">
+                                    <label for="option1">Hi</label>
+                                    <input type="radio" id="option1" name="options" value="high" required>
+                                    <label for="option2">Med</label>
+                                    <input type="radio" id="option2" name="options" value="medium">
+                                    <label for="option3">Low</label>
+                                    <input type="radio" id="option3" name="options" value="low">
+                                </div>
+                            </div>
+                        </div>
+                        <textarea placeholder="Description" name="description" id="description"></textarea>
+                        <div id="endButtons">
+                            <button type="submit" pId="0" class="button-27" id="submitBtn">Add</button>
+                            <button type="button" class="button-27" id="cancel">Cancel</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="project" id="templateProject">
-                <h3 id="projectTitle">New Title</h3>
+            <div id="tasks">
+                <div id="templateTask" pId="-1" tId="-1" class="noPriority">
+                    <div id="taskUpper">
+                        <div id="taskHead">
+                            <h3 id="headTaskTitle">Demo Task</h3>
+                            <h3 id="headProjectTitle">(Project Name)</h3>
+                        </div>
+                        <div id="taskOptions">
+                            <img id="editImg" class="taskImgs" src="../../assets/pencil.svg" alt="">
+                            <img id="deleteImg" class="taskImgs" src="../../assets/delete-forever.svg" alt="">
+                        </div>
+                    </div>
+                    <div id="taskLower">
+                        <div id="taskDate">
+                            <h3>Due Date: </h3>
+                            <h3 id="due">2024-02-10</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
