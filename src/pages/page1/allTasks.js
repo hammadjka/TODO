@@ -1,6 +1,6 @@
 import '../../styles.css'
 import { controller } from '../control';
-import { displayTasks as display} from './tasks';
+import { displayTasks as display} from '../displayTasks';
 
 document.addEventListener("click", function(e){
     const taskAdd = e.target.closest("#taskAdd");

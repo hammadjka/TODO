@@ -1,5 +1,4 @@
-import '../../styles.css'
-import { controller } from '../control';
+import { controller } from './control';
 import { parseISO, format} from 'date-fns';
 
 const display = (function (){
