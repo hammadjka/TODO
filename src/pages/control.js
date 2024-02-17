@@ -55,11 +55,27 @@ export const controller = (function(){
     let _projId = 0;
     let jsonProjs = JSON.parse(localStorage.getItem('projects'));
 
+    const projectTitleExists = (titleToCheck)=>{
+        for (let pId in _projs) {
+            if (_projs[pId].getProjectTitle() === titleToCheck) {
+                return true;
+            }
+        }
+    }
     const addProj = (title) => {
+        if(projectTitleExists(title)){
+            return;
+        }
         _projs[_projId] = Project(title);
         saveProjectsToLocalStorage();
         return _projId++;
     };
+    const removeProj = (pId) =>{
+        if(_projs.hasOwnProperty(pId)){
+            delete _projs[pId];
+            saveProjectsToLocalStorage();
+        }
+    }
 
     const editProjectTitle = (pId, newTitle) => {
         _projs[pId].setProjectTitle(newTitle);
@@ -94,7 +110,7 @@ export const controller = (function(){
     
     const loadProjectFromJson = (jsonProj) =>{
         if(jsonProj == undefined || Object.keys(jsonProj).length === 0){
-            addProj("All");
+            addProj("");
             return;
         }
         for (let projId in jsonProj) {
@@ -110,6 +126,7 @@ export const controller = (function(){
 
     return {
         addProj,
+        removeProj,
         editProjectTitle,
         getProjectTitle,
         addTaskToProj,

@@ -335,8 +335,10 @@ form{
     color: black;
     height: 200px;
     width: 180px;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-rows: 50px auto;
+    grid-template-columns: 100%;
+    justify-items: center;
     align-items: center;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 3%;
@@ -352,4 +354,20 @@ form{
 }
 #content2{
     display: none;
+}
+#deleteProject{
+    padding: 10px 5px;
+    justify-self: end;
+    align-self: start;
+}
+#projectDetails{
+    text-align: center;
+    margin-bottom: 50px;
+}
+#deleteProject > img{
+    width: 20px;
+}
+#deleteProject > img:hover{
+    cursor: pointer;
+    transform: scale(1.2); /* Increase the scale on hover */
 }

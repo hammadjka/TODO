@@ -133,6 +133,27 @@ const display = (function (){
             }
         }
     }
+    const clearDisplay = ()=>{
+        let parentElement = document.querySelector("#tasks");
+        const elementsWithoutAttribute = parentElement.querySelectorAll(`:not([${attributeName}="${attributeValue}"])`);
+            elementsWithoutAttribute.forEach(element => {
+            if (element.parentNode) {
+                element.parentNode.removeChild(element);
+            }
+        });
+    }   
+    const filterHiToLo = (jsonProj)=>{
+        clearDisplay();
+        if (jsonProj === undefined || Object.keys(jsonProj).length === 0) {
+            return;
+        }
+        // for (let projId in jsonProj) {
+        //     let sortedTasks = Object.values(jsonProj[projId]._tasks).sort((a, b) => b._priority - a._priority);
+        //     sortedTasks.forEach((task, index) => {
+        //         displayTask(projId, index, task._title, task._due, task._priority, task._desc);
+        //     });
+        // }
+    }
 
     return {
         showTaskForm, 
