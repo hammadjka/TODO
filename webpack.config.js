@@ -9,7 +9,9 @@ module.exports = {
     entry: {
         all: './src/pages/page1/allTasks.js',
         projects: './src/pages/projects/projects.js',
-        projectTasks: './src/pages/projects/projectTasks.js'
+        projectTasks: './src/pages/projects/projectTasks.js',
+        thisWeek: './src/pages/thisWeek/thisWeek.js',
+        today: './src/pages/today/today.js'
     },
     output: {
         filename: '[name].bundle.js',
@@ -51,6 +53,16 @@ module.exports = {
             filename: 'projectTasks.html',
             chunks: ['projectTasks']
         }),
+        new HtmlWebpackPlugin({
+            template: './src/pages/thisWeek/thisWeek.html',
+            filename: 'thisWeek.html',
+            chunks: ['thisWeek']
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/pages/today/today.html',
+            filename: 'today.html',
+            chunks: ['today']
+        }),
         new MiniCssExtractPlugin({
             filename: '[name].min.css', // Output minified CSS filename
         }),
@@ -64,6 +76,9 @@ module.exports = {
         static: './dist',
         watchFiles: ['./src/pages/page1/all.html', 
         './src/pages/projects/projects.html', 
-        './src/pages/projects/projectTasks.html'],
+        './src/pages/projects/projectTasks.html',
+        './src/pages/thisWeek/thisWeek.html',
+        './src/pages/today/today.html'
+        ],
     },
 };

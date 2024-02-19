@@ -3,30 +3,26 @@ import { parseISO, format} from 'date-fns';
 
 const display = (function (){
     const showTaskForm = () => {
-        let addTaskDiv = document.querySelector("#taskAdd");
-        addTaskDiv.style.display = "none";
-        let form = document.querySelector("#taskForm");
-        form.style.display = "block";
-
-        let add = document.querySelector("#add");
-        add.classList = "";
-        add.classList.add("noPointer")
-        add.appendChild(form);
-        add.style.backgroundColor="white";
+        let modal = document.getElementById("myModal");
+        modal.style.display = "flex";
+        modal.style.justifyContent = "center"
     }
     const closeTaskForm = () =>{
-        document.querySelector("#taskAdd").style.display = "flex";
-        add.style.backgroundColor="inherit";
-        add.classList = "";
-        add.classList.add("pointer")
-        let form = document.querySelector("#taskForm");
-        form.style.display = "none"
-        form.reset();
+        let modal = document.getElementById("myModal");
+        modal.style.display = "none";
+        let form = modal.querySelector('#taskForm');
+        if (form) {
+            form.reset();
+        }
+
     }
     const parseTaskForm = (form) =>{
         let title = form.elements['taskTitle'].value;
         let dateValue = form.elements['date'].value;
-        let date = format(parseISO(dateValue), "yyyy-MM-dd");        
+        let date = '';
+        if(dateValue){
+            date = format(parseISO(dateValue), "yyyy-MM-dd");        
+        }
         let options = form.elements['options'];
         let priority;
         for (var i = 0; i < options.length; i++) {
@@ -41,7 +37,6 @@ const display = (function (){
     }
 
     const setTaskDivContent = ( div, pId, title, date, priority, desc) => {
-        console.log(date);
         if(title){
             div.querySelector("#headTaskTitle").textContent = title;
         }
@@ -83,39 +78,52 @@ const display = (function (){
     }
 
     const showTEditForm = (divToEdit) =>{
-        divToEdit.querySelector("#taskHead").style.display = "none";
-        divToEdit.querySelector("#taskOptions").style.display = "none";
-        divToEdit.querySelector("#taskLower").style.display = "none";
-        divToEdit.classList.add("noPriority");
-
-        let editForm = document.querySelector("#taskForm").cloneNode(true);
-        editForm.id = "taskEditForm";
+        let modal =  document.querySelector("#myModal").cloneNode(true);
+        modal.id = "editModal";
+        let editForm = modal.querySelector("#taskForm");
+        editForm.id = "taskEditForm"
         editForm.querySelector("#submitBtn").setAttribute("pId", divToEdit.getAttribute("pId"));
         editForm.querySelector("#submitBtn").setAttribute("tId", divToEdit.getAttribute("tId"))
-        editForm.style.display = "block"
-        //since we're editing the task and all values are already set, we'll only look for changes.
         editForm.taskTitle.removeAttribute('required');
         editForm.date.removeAttribute('required');
         editForm.option1.removeAttribute('required');
-        divToEdit.appendChild(editForm);
+        document.body.appendChild(modal);
+        modal.style.display = "flex";
+        modal.style.justifyContent = "center"
     }
-    const closeTEditForm = (divToEdit) =>{
-        let editForm = divToEdit.querySelector("#taskEditForm");
-        editForm.reset();
-        editForm.parentNode.removeChild(editForm);
-        divToEdit.classList.remove("noPriority");
-        divToEdit.querySelector("#taskHead").style.display = "flex";
-        divToEdit.querySelector("#taskOptions").style.display = "flex";
-        divToEdit.querySelector("#taskLower").style.display = "flex";
+    const closeTEditForm = () =>{
+        let modal = document.querySelector("#editModal");
+        modal.style.display = "none";
+        let form = modal.querySelector('#taskForm');
+        if (form) {
+            form.reset();
+        }
+        modal.parentNode.removeChild(modal);
     }
-    const updateTask = (form, divToEdit) =>{
+    const updateTask = (form) =>{
         let {title, date, priority, desc} = parseTaskForm(form);
         let pId = form.querySelector("#submitBtn").getAttribute("pId");
         let tId = form.querySelector("#submitBtn").getAttribute("tId");
         controller.editTaskOfProj(pId,tId,title,desc,date,priority);
-        console.log( pId + " " + title + " " + date + " " + priority + " " + desc)
+        console.log(pId + " " + tId + " " + date + " " + priority + " " + desc );
+        let divToEdit = findTaskDiv(tId, pId);
         setTaskDivContent(divToEdit, pId, title, date, priority, desc);
         closeTEditForm(divToEdit);
+    }
+    const findTaskDiv = (tId, pId) => {
+        let tasksDiv = document.querySelector("#tasks")
+        // Iterate through the children of the tasks div
+        for (let i = 0; i < tasksDiv.children.length; i++) {
+            let child = tasksDiv.children[i];
+            
+            // Check if the child contains both tId and pId attributes
+            if (child.getAttribute('tId') === tId && child.getAttribute('pId') === pId) {
+                return child; // Return the child div if both attributes match
+            }
+        }
+        
+        // If no matching child div is found, return null
+        return null;
     }
     const deleteTask = (divToEdit)=>{
         divToEdit.parentNode.removeChild(divToEdit);
@@ -134,25 +142,45 @@ const display = (function (){
         }
     }
     const clearDisplay = ()=>{
-        let parentElement = document.querySelector("#tasks");
-        const elementsWithoutAttribute = parentElement.querySelectorAll(`:not([${attributeName}="${attributeValue}"])`);
-            elementsWithoutAttribute.forEach(element => {
-            if (element.parentNode) {
-                element.parentNode.removeChild(element);
+        const parentDiv = document.getElementById('tasks');
+        const children = parentDiv.children;
+        const childrenArray = Array.from(children);
+        const childToKeep = childrenArray.find(child => {
+            return child.getAttribute('pId') === '-1';
+        });
+        childrenArray.forEach(child => {
+            if (child !== childToKeep) {
+                parentDiv.removeChild(child);
             }
         });
-    }   
+
+    }
     const filterHiToLo = (jsonProj)=>{
-        clearDisplay();
         if (jsonProj === undefined || Object.keys(jsonProj).length === 0) {
             return;
         }
-        // for (let projId in jsonProj) {
-        //     let sortedTasks = Object.values(jsonProj[projId]._tasks).sort((a, b) => b._priority - a._priority);
-        //     sortedTasks.forEach((task, index) => {
-        //         displayTask(projId, index, task._title, task._due, task._priority, task._desc);
-        //     });
-        // }
+        clearDisplay();
+        let flattenedTasks = controller.sortHiToLo(jsonProj);
+        flattenedTasks.forEach( (taskArr) => {
+            let task = taskArr[2];
+            let tId = taskArr[1];
+            let pId = taskArr[0];
+            displayTask(pId, tId, task._title, task._due, task._priority, task._desc);    
+        })
+    }
+    const filterDateDue = (jsonProj)=>{
+        if (jsonProj === undefined || Object.keys(jsonProj).length === 0) {
+            return;
+        }
+        clearDisplay();
+        let flattenedTasks = controller.sortDateDue(jsonProj);
+        console.log(flattenedTasks);
+        flattenedTasks.forEach( (taskArr) => {
+            let task = taskArr[2];
+            let tId = taskArr[1];
+            let pId = taskArr[0];
+            displayTask(pId, tId, task._title, task._due, task._priority, task._desc);    
+        })
     }
 
     return {
@@ -163,7 +191,9 @@ const display = (function (){
         closeTEditForm, 
         updateTask, 
         deleteTask,
-        displayOnLoad};
+        displayOnLoad,
+        filterHiToLo,
+        filterDateDue};
 })();
 
 

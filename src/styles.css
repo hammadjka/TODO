@@ -83,7 +83,7 @@ a{
 }
 #contentTop{
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 2fr 5fr;
     gap:10px;
     padding: 0px 30px;
     flex:1;
@@ -116,7 +116,13 @@ a{
 #contentBottom{
     padding: 10px 20px 0px 20px;
     display: grid;
-    grid-template-rows: minmax(15%, max-content) auto;
+    grid-template-rows: minmax(15%, max-content);
+    gap:10px;
+}
+#contentBottom2{
+    padding: 10px 20px 0px 20px;
+    display: grid;
+    grid-template-rows: 85%;
     gap:10px;
 }
 #tasks{
@@ -184,6 +190,86 @@ a{
     border-left: 5px solid white;
 
 }
+#thisWeek{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+/* Projects */
+#projects{
+    padding: 20px 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: grid;
+    grid-template-columns: repeat( auto-fill, minmax(180px, 1fr));
+    gap: 50px;
+}
+#newProject{
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 200px;
+    width: 180px;
+    border-radius: 5%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    color: black;
+}
+#addProject{
+    height: 50px;
+    width: 50px;
+    background: rgba(0,0,0,0.15) url(./assets/plusWhite.svg) no-repeat;
+    background-position: cover;
+    border: none;
+    border-radius: 50%;
+    transition-duration: 0.3s;
+}
+#addProject:hover{
+    background: black url(./assets/plusWhite.svg) no-repeat;
+    cursor: pointer;
+}
+.project{
+    background-color:rgba(0, 0, 0, 0.1);
+    color: black;
+    height: 200px;
+    width: 180px;
+    display: grid;
+    grid-template-rows: 50px auto;
+    grid-template-columns: 100%;
+    justify-items: center;
+    align-items: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 3%;
+    transition: transform 0.3s ease-in-out;
+    font-size: larger;
+}
+.project:hover{
+    transform: scale(1.1);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    cursor: pointer;
+}
+#templateProject{
+    display: none;
+}
+#content2{
+    display: none;
+}
+#deleteProject{
+    padding: 10px 5px;
+    justify-self: end;
+    align-self: start;
+}
+#projectDetails{
+    text-align: center;
+    margin-bottom: 50px;
+}
+#deleteProject > img{
+    width: 20px;
+}
+#deleteProject > img:hover{
+    cursor: pointer;
+    transform: scale(1.2); /* Increase the scale on hover */
+}
+
+/* form modal */
 #add{
     display: flex;
     justify-content: start;
@@ -201,7 +287,7 @@ a{
     background-color: rgba(0,0,0,0.1) !important;
 }
 #add.pointer:hover img {
-    transform: scale(1.2); /* Increase the scale on hover */
+    transform: scale(1.2); 
 }
 #add.noPointer:hover{
     cursor: default;
@@ -296,78 +382,56 @@ input[type="radio"]{
 form{
     height: max-content;
     width: 100%;
-    display: none;
 }
+/* The Modal (background) */
+.modal{
+    display: none;
+    z-index: 1; /* Sit on top */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    
+}
+#modalContainer, #coverContainer{
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    width: 800px;
 
-/* Projects */
-#projects{
-    padding: 20px 30px;
-    background-color: rgba(255, 255, 255, 0.5);
-    display: grid;
-    grid-template-columns: repeat( auto-fill, minmax(180px, 1fr));
-    gap: 50px;
 }
-#newProject{
-    background-color: rgba(0, 0, 0, 0.1);
-    height: 200px;
-    width: 180px;
-    border-radius: 5%;
-    display: grid;
-    justify-items: center;
-    align-items: center;
+.modal-content{
+    height: max-content;
+    width: 800px;
     color: black;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.6s
 }
-#addProject{
-    height: 50px;
-    width: 50px;
-    background: rgba(0,0,0,0.15) url(./assets/plusWhite.svg) no-repeat;
-    background-position: cover;
-    border: none;
-    border-radius: 50%;
-    transition-duration: 0.3s;
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
 }
-#addProject:hover{
-    background: black url(./assets/plusWhite.svg) no-repeat;
-    cursor: pointer;
+.bgWhite{
+    background-color: white;
+    height: max-content;
+    width: 800px;
+    border-radius: 10px;
 }
-.project{
-    background-color:rgba(0, 0, 0, 0.1);
+.close{
+    color: #aaa;
+    display: flex;
+    margin-left: auto;
+    font-size: 28px;
+    font-weight: bold;
+    padding-right: 10px;
+    width: min-content;
+}
+  
+.close:hover, .close:focus{
     color: black;
-    height: 200px;
-    width: 180px;
-    display: grid;
-    grid-template-rows: 50px auto;
-    grid-template-columns: 100%;
-    justify-items: center;
-    align-items: center;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    border-radius: 3%;
-    transition: transform 0.3s ease-in-out;
-    font-size: larger;
-}
-.project:hover{
-    transform: scale(1.1);
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-}
-#templateProject{
-    display: none;
-}
-#content2{
-    display: none;
-}
-#deleteProject{
-    padding: 10px 5px;
-    justify-self: end;
-    align-self: start;
-}
-#projectDetails{
-    text-align: center;
-    margin-bottom: 50px;
-}
-#deleteProject > img{
-    width: 20px;
-}
-#deleteProject > img:hover{
+    text-decoration: none;
     cursor: pointer;
-    transform: scale(1.2); /* Increase the scale on hover */
 }

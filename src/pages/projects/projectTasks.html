@@ -17,15 +17,19 @@
                 <h3>All</h3>
             </div>
          </a>
-        <div class="sideItem">
-            <img src="../../assets/calendar-today.svg" class="sideImg" alt="">
-            <h3>Today</h3>
-        </div>
-        <div class="sideItem">
-            <img class="sideImg" src="../../assets/calendar-week.svg" alt="">
-            <h3>This Week</h3>
-        </div>
-        <a id="switchToProject" href="./projects.html">
+         <a href="./today.html">
+            <div class="sideItem">
+                <img src="../../assets/calendar-today.svg" class="sideImg" alt="">
+                <h3>Today</h3>
+            </div>
+         </a>
+        <a href="./thisWeek.html">
+            <div class="sideItem">
+                <img class="sideImg" src="../../assets/calendar-week.svg" alt="">
+                <h3>This Week</h3>
+            </div>
+        </a>
+        <a href="./projects.html">
             <div class="sideItem">
                 <img src="../../assets/folder-multiple.svg" class="sideImg" alt="">
                 <h3>Projects</h3>
@@ -40,13 +44,9 @@
                     <img class="sideImg priorityFilter" src="../../assets/swap-vertical.svg" alt="">
                     <h3 class="priorityFilter">High-Low Priority</h3>
                 </div>
-                <div class="filterItems" >
-                    <img class="sideImg" src="../../assets/text-box-check-outline.svg" alt="">
-                    <h3>Completed Tasks</h3>
-                </div>
-                <div class="filterItems">
-                    <img class="sideImg" src="../../assets/history.svg" alt="">
-                    <h3>Date Added</h3>
+                <div class="filterItems dateDue" id="dateDue">
+                    <img class="sideImg dateDue" src="../../assets/history.svg" alt="">
+                    <h3 class="dateDue">Date Due</h3>
                 </div>
             </div>
         </div>
@@ -56,36 +56,6 @@
                     <img class="sideImg" src="../../assets/plus.svg" alt="">
                     <h3>Add Task</h3>
                 </div>
-                <form action="" id="taskForm">
-                    <div id="formContent">
-                        <div id="wrapper">
-                            <div class ="formGroup" id="title">
-                                <h3>Title</h3>
-                                <input  type="text" id="taskTitle" name="taskTitle" required>
-                            </div>
-                            <div class ="formGroup" id="dueDate">
-                                <h3>Due</h3>
-                                <input  type="date" id="date" required>
-                            </div>
-                            <div class ="formGroup" id="priority">
-                                <h3 id="priorityLbl">Priority</h3>
-                                <div id="radioOptions">
-                                    <label for="option1">Hi</label>
-                                    <input type="radio" id="option1" name="options" value="high" required>
-                                    <label for="option2">Med</label>
-                                    <input type="radio" id="option2" name="options" value="medium">
-                                    <label for="option3">Low</label>
-                                    <input type="radio" id="option3" name="options" value="low">
-                                </div>
-                            </div>
-                        </div>
-                        <textarea placeholder="Description" name="description" id="description"></textarea>
-                        <div id="endButtons">
-                            <button type="submit" pId="0" class="button-27" id="submitBtn">Add</button>
-                            <button type="button" class="button-27" id="cancel">Cancel</button>
-                        </div>
-                    </div>
-                </form>
             </div>
             <div id="tasks">
                 <div id="templateTask" pId="-1" tId="-1" class="noPriority">
@@ -106,6 +76,45 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal">
+        <div id="modalContainer">
+            <div class="modal-content">
+              <div class="bgWhite">
+                    <span id="cancel" class="close">&times;</span>
+                    <form action="" id="taskForm">
+                        <div id="formContent">
+                            <div id="wrapper">
+                                <div class ="formGroup" id="title">
+                                    <h3>Title</h3>
+                                    <input  type="text" id="taskTitle" name="taskTitle" required>
+                                </div>
+                                <div class ="formGroup" id="dueDate">
+                                    <h3>Due</h3>
+                                    <input  type="date" id="date" required>
+                                </div>
+                                <div class ="formGroup" id="priority">
+                                    <h3 id="priorityLbl">Priority</h3>
+                                    <div id="radioOptions">
+                                        <label for="option1">Hi</label>
+                                        <input type="radio" id="option1" name="options" value="high" required>
+                                        <label for="option2">Med</label>
+                                        <input type="radio" id="option2" name="options" value="medium">
+                                        <label for="option3">Low</label>
+                                        <input type="radio" id="option3" name="options" value="low">
+                                    </div>
+                                </div>
+                            </div>
+                            <textarea placeholder="Description" name="description" id="description"></textarea>
+                            <div id="endButtons">
+                                <button type="submit" pId="0" class="button-27" id="submitBtn">Add</button>
+                                <button type="button" class="button-27" id="cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+              </div>
             </div>
         </div>
     </div>
